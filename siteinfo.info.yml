@@ -1,0 +1,7 @@
+name: siteinfo
+type: module
+description: Node to json converter with site key validation
+package: Custom
+core: 8.x
+package: Custom 
+version: 0.1

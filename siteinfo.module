@@ -1,0 +1,52 @@
+<?php
+/**
+ * Implements hook_form_alter().
+ */
+function siteinfo_form_site_information_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+$config = \Drupal::config('siteinfo.settings');
+
+/*To change status of submit form to update configuration incase the form has value set already*/
+
+ if ($config->get('site-information.site_api_key') != NULL ) {
+ $form['actions']['submit']['#value'] = t('Update Configuration');
+
+}
+
+else
+{
+ $form['actions']['submit']['#value'] = t('Save Configuration');
+
+}
+
+$form['#submit'][] = 'site_information_settings_form_submit';
+
+
+}
+
+
+
+/**
+ * Form submit for site_information_settings_form_submit.
+ */
+function site_information_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  // Set Drupal set meeage when field is saved.
+   if ($form_state->getValue('site_api_key') != NULL || $form_state->getValue('site_api_key') != '') {
+/*To remove default status message*/
+ drupal_get_messages('status');
+$key = $form_state->getValue('site_api_key');
+
+  \Drupal::logger('siteinfo')->notice('Site API Key has been saved with %siteapikey.',
+        array(
+            '%siteapikey' => $key,
+        ));
+/*To set our custom message */
+drupal_set_message(t('Site API Key has been saved with %key', array('%key' => $key)));
+  }
+  
+}
+
+
+
+
+

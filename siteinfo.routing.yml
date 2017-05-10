@@ -1,0 +1,16 @@
+siteinfo.siteconfiguration:
+      path: admin/config/system/site-information
+      defaults:
+        _form: \Drupal\siteinfo\Form\SiteInfo
+        _title: Site Information
+      requirements:
+        _permission: 'access content'
+
+siteinfo.page_id:
+    path: '/page_json/{siteapikey}/{nodeid}'
+    defaults:
+        _controller: \Drupal\siteinfo\Controller\JsonConverter::jsonpagereturn
+        _title: 'Json Converted page'
+    requirements:
+        _permission: 'access content'	
+   
